@@ -3,4 +3,5 @@ node_js:
   - "iojs"
   - "8.11.3"
 script:
+  - npm install
   - node app.js
