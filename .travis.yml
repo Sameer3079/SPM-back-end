@@ -1,10 +1,9 @@
 language: node_js
 node_js:
 - '8'
-script:
-  # 'true'
-- npm install
-- node app.js
+script: 'true'
+# - npm install
+# - node app.js
 services:
 - mongodb
 env:
