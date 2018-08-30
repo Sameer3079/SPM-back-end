@@ -5,4 +5,4 @@ script:
   - npm install
   - node app.js
 services:
-- mongodb
+  - mongodb
