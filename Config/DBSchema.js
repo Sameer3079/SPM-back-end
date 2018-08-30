@@ -23,7 +23,7 @@ Mongoose.model('Student', StudentSchema);
 Mongoose.model('StudentVivaSchedule', StudentVivaSchedule)
 
 // Mongoose.connect('mongodb://localhost:27017/Student', { useNewUrlParser: true }, (err) => {
-Mongoose.connect('mongodb://roo:sameer123@ds237192.mlab.com:37192/spm-project', { useNewUrlParser: true }, (err) => {
+Mongoose.connect('mongodb://root:sameer123@ds237192.mlab.com:37192/spm-project', { useNewUrlParser: true }, (err) => {
     if (err) {
         // console.log(err);
         Mongoose.connect('mongodb://localhost:27017/Student', { useNewUrlParser: true }, (localErr) => {
