@@ -5,7 +5,7 @@ let studentVivaSchedule = mongoose.model('StudentVivaSchedule')
 let adminController = function () {
     this.scheduleStudentViva = (studentId, dateTime, location) => {
         return new Promise((resolve, reject) => {
-            // check whether the studentId is valid
+            // Checking whether the student ID is valid
             studentSchema.find({ studentId: studentId }).then(data => {
                 if (data.length == 0) {
                     reject({ status: 400, message: 'Invalid Student ID' })
@@ -14,15 +14,13 @@ let adminController = function () {
                 reject({ status: 400, message: 'Error occured while searching for Student' })
             })
 
-            // check whether the entered date and time are valid (e.g. whether they are in the future)
+            // Checking whether the entered date are valid (e.g. whether they are in the future)
             let nowDateTime = new Date()
             if (dateTime < nowDateTime) {
                 reject({ status: 400, message: 'Scheduled date has already passed' })
             }
 
-            //
-
-            // save the scheduled viva session details
+            // Save the scheduled viva session details in the database
             let scheduleObj = new studentVivaSchedule({
                 studentId: studentId,
                 dateTime: dateTime,

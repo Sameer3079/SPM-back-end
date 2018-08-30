@@ -5,12 +5,13 @@ var StudentController = function(){
     this.add = (Data) => {
         return new Promise((resolve,reject) => {
             var Student = new StudentSchema({
+                studentId: Data.studentId,
                 name:Data.name
             })
 
             Student.save()
             .then(() => {
-                resolve({"status":201,"message":"Add Student"})
+                resolve({"status":201,"message":"Added Student"})
             })
             .catch((err) => {
                 reject({"status":404,"message":"Err "+err})

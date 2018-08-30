@@ -12,7 +12,7 @@ router.post('/schedule-session', (req, res) => {
             res.status(data.status).send(data.message)
         })
         .catch(error => {
-            res.status(data.status).send(data.message)
+            res.status(error.status).send(error.message)
         })
 })
 
