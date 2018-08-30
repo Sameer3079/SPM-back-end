@@ -8,16 +8,16 @@ let adminController = function () {
             // check whether the studentId is valid
             studentSchema.find({ studentId: studentId }).then(data => {
                 if (data.length == 0) {
-                    reject({ status: 999, message: 'Invalid Student ID' }) // TODO: Return proper HTTP status code
+                    reject({ status: 400, message: 'Invalid Student ID' })
                 }
             }).catch(error => {
-                reject({ status: 999, message: 'Error occured while searching for Student' }) // TODO: Return proper HTTP status code
+                reject({ status: 400, message: 'Error occured while searching for Student' })
             })
 
             // check whether the entered date and time are valid (e.g. whether they are in the future)
             let nowDateTime = new Date()
             if (dateTime < nowDateTime) {
-                reject({ status: 999, message: 'Scheduled date has already passed' })
+                reject({ status: 400, message: 'Scheduled date has already passed' })
             }
 
             //
@@ -30,10 +30,10 @@ let adminController = function () {
             })
             scheduleObj.save()
                 .then(
-                    resolve({ status: 999, message: 'Successfully saved the schedule in the database' }) // TODO: Return proper HTTP status code
+                    resolve({ status: 201, message: 'Successfully saved the schedule in the database' })
                 )
                 .catch(error => {
-                    reject({ status: 999, message: 'Error occured while saving the schedule in the database' }) // TODO: Return proper HTTP status code
+                    reject({ status: 400, message: 'Error occured while saving the schedule in the database' })
                 })
         })
     }
