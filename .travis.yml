@@ -4,4 +4,4 @@ node_js:
   - "8.11.3"
 script:
   - npm install
-  - node app.js
+  # - node app.js
