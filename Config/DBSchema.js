@@ -12,6 +12,23 @@ const StudentSchema = new Schema({
     }
 });
 
+
+//Sahiru
+const SupervisorSchema = new Schema({
+    supervisorId: {
+        type : String,
+        required: true
+    },
+    name:{
+        type:String,
+        required:true
+    },
+    password:{
+        type:String,
+        required:true
+    }
+})
+
 // Sameer
 let StudentVivaSchedule = new Schema({
     studentId: { type: String, required: true },
@@ -21,6 +38,7 @@ let StudentVivaSchedule = new Schema({
 
 Mongoose.model('Student', StudentSchema);
 Mongoose.model('StudentVivaSchedule', StudentVivaSchedule)
+Mongoose.model('Supervisor',SupervisorSchema)
 
 Mongoose.connect('mongodb://localhost:27017/Student', { useNewUrlParser: true }, (err) => {
     if(err){
