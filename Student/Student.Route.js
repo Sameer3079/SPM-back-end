@@ -22,4 +22,8 @@ Route.get('/', (req,res) => {
     })
 })
 
+Route.post('/submit-form-i6', (req, res) => {
+
+})
+
 module.exports = Route;
