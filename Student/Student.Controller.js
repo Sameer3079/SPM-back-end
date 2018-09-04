@@ -2,6 +2,9 @@ const Mongoose      = require("../Config/DBSchema");
 const StudentSchema = Mongoose.model("Student");
 
 var StudentController = function(){
+    /*
+        student register function
+    */
     this.add = (Data) => {
         return new Promise((resolve,reject) => {
             var Student = new StudentSchema({
