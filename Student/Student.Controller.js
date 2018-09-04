@@ -1,7 +1,7 @@
 const Mongoose      = require("../Config/DBSchema");
 const StudentSchema = Mongoose.model("Student");
 let StudentForms = Mongoose.model('StudentForms')
-let functions = reuqire('../functions')
+let functions = require('../functions')
 let fs = require('fs')
 
 var StudentController = function(){
