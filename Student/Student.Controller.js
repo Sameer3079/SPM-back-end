@@ -3,6 +3,9 @@ const StudentSchema = Mongoose.model("Student");
 let StudentForms = Mongoose.model('StudentForms')
 let functions = require('../functions')
 let fs = require('fs')
+let multer = require('multer')
+let formI6Directory = '../student_forms/form_i6/'
+let uploadFormI6 = multer({dest: formI6Directory}).single('word_document')
 
 var StudentController = function(){
     this.add = (Data) => {
