@@ -1,5 +1,8 @@
 const Mongoose      = require("../Config/DBSchema");
 const StudentSchema = Mongoose.model("Student");
+let StudentForms = Mongoose.model('StudentForms')
+let functions = reuqire('../functions')
+let fs = require('fs')
 
 var StudentController = function(){
     this.add = (Data) => {
@@ -28,6 +31,40 @@ var StudentController = function(){
             .catch((err) => {
                 reject({"status":404,"message":"err "+err})
             })
+        })
+    }
+
+    // TODO: Test Method
+    this.submitFormI6 = (studentId, formI6) => {
+        return new Promise((resolve, reject) => {
+            functions.isStudentValid(studentId).then(validity => {
+                if (validity == true) {
+                    let document = JSON.parse(formI6)
+                    fs.writeFile('./student_forms/form_i6/'+studentId + '-form-I6', document, err => {
+                        if (err) {
+                            console.log(err)
+                        }
+                        else {
+                            let studentFormRecord = new StudentForms({
+                                studentId: studentId,
+                                fileName: studentId
+                            })
+                            studentFormRecord.save().then(data => {
+
+                            }).catch(err => {
+
+                            })
+                        }
+                    })
+                }
+                else {
+                    reject({ status: 999, message: "Stude" }) // TODO: 
+                }
+            }).catch(err => {
+                reject({ status: 999, message: err }) // TODO: 
+            })
+
+
         })
     }
 }
