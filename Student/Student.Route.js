@@ -1,6 +1,9 @@
 const Express               = require("express");
 const Route                 = Express.Router();
 const StudentController     = require("./Student.Controller");
+let multer = require('multer')
+let dir = './student_forms/form_i6/'
+
 
 Route.post('/', (req,res) => {
     StudentController.add(req.body)
@@ -22,17 +25,44 @@ Route.get('/', (req,res) => {
     })
 })
 
-Route.post('/submit-form-i6', (req, res) => {
-    let studentId = req.body.studentId
-    let formI6 = req.body.formI6
+Route.post('/submit-form-i6/:studentId', (req, res) => {
+    let studentId = req.params.studentId
+    let filePath = ''
 
-    StudentController.submitFormI6(studentId, formI6)
-        .then(data => {
-            res.status(data.status).send(data.message)
-        })
-        .catch(err => {
-            res.status(err.status).send(err.message)
-        })
+    // Storage Configurations
+    let storage = multer.diskStorage({
+        // Location
+        destination: (req, file, cb) => {
+            cb(null, './student_forms/form_i6/')
+        },
+        // File name & Extension
+        filename: (req, file, cb) => {
+            console.log(file.mimetype)
+            let substringArray = file.originalname.split('.')
+            let substringCount = substringArray.length
+            let fileExtension = substringArray[substringCount - 1]
+            cb(null, studentId + '.'+fileExtension)
+        }
+    })
+    // Passing storage config. & field value to get the file from
+    let upload = multer({ storage: storage }).single('form_i6')
+
+    upload(req, res, err => {
+        if (err) {
+            console.log(err)
+            return res.status(422).send("Error occured")
+        }
+        filePath = req.file.path
+        return res.send("Upload completed for " + filePath)
+    })
+
+    // StudentController.submitFormI6(studentId, formI6)
+    //     .then(data => {
+    //         res.status(data.status).send(data.message)
+    //     })
+    //     .catch(err => {
+    //         res.status(err.status).send(err.message)
+    //     })
 })
 
 module.exports = Route;

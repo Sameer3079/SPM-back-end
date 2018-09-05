@@ -36,37 +36,16 @@ var StudentController = function () {
         })
     }
 
-    // TODO: Test Method
-    this.submitFormI6 = (studentId, formI6) => {
+    // TODO: Implement
+    this.submitFormI6 = (studentId, req) => {
         return new Promise((resolve, reject) => {
-            StudentSchema.find({ studentId: studentId }).then(data => {
-                if (data.length !== 0) {
-                    let document = JSON.parse(formI6)
-                    fs.writeFile('./student_forms/form_i6/' + studentId + '-form-I6', document, err => {
-                        if (err) {
-                            console.log(err)
-                        }
-                        else {
-                            let studentFormRecord = new StudentForms({
-                                studentId: studentId,
-                                fileName: studentId
-                            })
-                            studentFormRecord.save().then(data => {
-
-                            }).catch(err => {
-
-                            })
-                        }
-                    })
-                }
-                else {
-                    reject({ status: 999, message: "Stude" }) // TODO: 
-                }
-            }).catch(err => {
-                reject({ status: 999, message: err }) // TODO: 
-            })
-
-
+            // upload(req, res, err => {
+            //     if (err) {
+            //         reject({ status: 422, error: err })
+            //     }
+            //     filePath = req.file.path
+            //     resolve({ status: 201 })
+            // })
         })
     }
 }
