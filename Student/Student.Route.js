@@ -76,6 +76,7 @@ Route.post('/submit-form-i6/:studentId', (req, res) => {
                 upload(req, res, err => {
                     if (err) {
                         console.log('findOne -> then -> if -> upload -> if')
+                        console.log(err)
                         res.status(422).send({
                             // status: true => successful, false => failure
                             status: false,
