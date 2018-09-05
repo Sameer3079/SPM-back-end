@@ -36,18 +36,6 @@ var StudentController = function () {
         })
     }
 
-    // TODO: Implement
-    this.submitFormI6 = (studentId, req) => {
-        return new Promise((resolve, reject) => {
-            // upload(req, res, err => {
-            //     if (err) {
-            //         reject({ status: 422, error: err })
-            //     }
-            //     filePath = req.file.path
-            //     resolve({ status: 201 })
-            // })
-        })
-    }
 }
 
 module.exports = new StudentController();

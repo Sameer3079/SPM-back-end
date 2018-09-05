@@ -55,14 +55,6 @@ Route.post('/submit-form-i6/:studentId', (req, res) => {
         filePath = req.file.path
         return res.send("Upload completed for " + filePath)
     })
-
-    // StudentController.submitFormI6(studentId, formI6)
-    //     .then(data => {
-    //         res.status(data.status).send(data.message)
-    //     })
-    //     .catch(err => {
-    //         res.status(err.status).send(err.message)
-    //     })
 })
 
 module.exports = Route;
