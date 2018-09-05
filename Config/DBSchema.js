@@ -21,7 +21,7 @@ let studentVivaSchedule = new Schema({
 // This schema will be used to store location of the form i-6
 let studentForms = new Schema({
     studentId: { type: String, required: true },
-    form_i6: { type: String, required: true}
+    i6FileExtension: { type: String, required: true }
 })
 
 Mongoose.model('Student', StudentSchema);
