@@ -35,16 +35,13 @@ Route.post('/submit-form-i6/:studentId', (req, res) => {
 
     StudentSchema.findOne({ studentId: studentId })
         .then(studentRecord => {
-            console.log('findOne -> then')
             if (studentRecord === null) {
-                console.log('findOne -> then -> if')
                 res.status(400).send({
                     status: false,
                     message: "Student is not registered"
                 })
             }
             else {
-                console.log('findOne -> then -> else')
                 let filePath = ''
                 let fileExtension = '';
 
@@ -75,7 +72,6 @@ Route.post('/submit-form-i6/:studentId', (req, res) => {
 
                 upload(req, res, err => {
                     if (err) {
-                        console.log('findOne -> then -> if -> upload -> if')
                         console.log(err)
                         res.status(422).send({
                             // status: true => successful, false => failure
@@ -84,7 +80,6 @@ Route.post('/submit-form-i6/:studentId', (req, res) => {
                         })
                     }
                     else {
-                        console.log('findOne -> then -> if -> upload -> else')
                         filePath = req.file.path
 
                         let studentFormRecord = new StudentForms({
