@@ -123,4 +123,23 @@ Route.post('/submit-form-i6/:studentId', (req, res) => {
         })
 })
 
+Route.post('/dailydiary', (req, res) => {
+    StudentController.addDailyDiary(req.body)
+      .then(data => {
+        res.status(data.status).send({ message: data.message });
+      })
+      .catch(err => {
+        res.status(err.status).send({ message: err.message });
+      });
+  });
+
+  Route.get('/dailydiary', (req,res) => {
+    StudentController.getDailyDiary()
+    .then((Data) => {
+        res.status(Data.status).send(Data)
+    })
+    .catch((err) => {
+        res.status(err.status).send(err.message);
+    })
+})
 module.exports = Route;
