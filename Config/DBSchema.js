@@ -151,12 +151,40 @@ const FormI1P2Schema = new Schema({
         type: String,
         required: true
     },
+
+    
 })
+
+const DailyDiarySchema = new Schema({
+    studentId: {
+      type: String,
+      required: true
+    },
+    trainingParty: {
+      type: String,
+      required: true
+    },
+    startDate : {
+      type: Date,
+      required:false
+    },
+    endDate : {
+      type: Date,
+      required:false
+    },
+    description : {
+      type: String,
+      required:false
+    }
+  
+  });
+
 Mongoose.model('Student', StudentSchema);
 Mongoose.model('StudentVivaSchedule', studentVivaSchedule)
 Mongoose.model('StudentForms', studentForms)
 Mongoose.model('Company', CompanySchema);
 Mongoose.model('FormI1P1', FormI1P1Schema);
+Mongoose.model('DailyDiarySchema', DailyDiarySchema);
 
 Mongoose.connect('mongodb://localhost:27017/Student', { useNewUrlParser: true }, (err) => {
     if (err) {

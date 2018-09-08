@@ -1,5 +1,6 @@
 const Mongoose = require("../Config/DBSchema");
 const StudentSchema = Mongoose.model("Student");
+const DailyDiarySchema = Mongoose.model("DailyDiarySchema");
 // let fs = require('fs')
 // let multer = require('multer')
 // let formI6Directory = '../student_forms/form_i6/'
@@ -49,6 +50,52 @@ var StudentController = function(){
     this.get = () => {
         return new Promise((resolve, reject) => {
             StudentSchema.find().exec()
+                .then((Data) => {
+                    resolve({ "status": 200, "message": "Get all data", "data": Data })
+                })
+                .catch((err) => {
+                    reject({ "status": 404, "message": "err " + err })
+                })
+        })
+    }
+
+    //add Stuedent Daily Diary Record
+    
+    this.addDailyDiary = (Data) => {
+        return new Promise((resolve,reject) => {
+            var diary = new DailyDiarySchema({
+                studentId : Data.studentId,
+                trainingParty : Data.trainingParty,
+                startDate : Data.startDate,
+                endDate : Data.endDate,
+                description : Data.description
+            });
+
+            diary.save()
+            .then(() => {
+                resolve({"status":200, "message":"Save"})
+            })
+            .catch((err) => {
+                reject({"status":404, "message":"Error "+err});
+            });
+        })
+    }
+
+    // this.getDailyDiary = () => {
+    //     return new Promise((resolve, reject) => {
+    //         DailyDiarySchema.find().exec()
+    //         .then(data => {
+    //             reslove({"status":200, "diary" : data});
+    //         })
+    //         .catch(error => {
+    //             reject({"status":404, "messag" : "Error"+ err })
+    //         })
+    //     })
+    // }
+
+    this.getDailyDiary = () => {
+        return new Promise((resolve, reject) => {
+            DailyDiarySchema.find().exec()
                 .then((Data) => {
                     resolve({ "status": 200, "message": "Get all data", "data": Data })
                 })
