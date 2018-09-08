@@ -56,14 +56,21 @@ const CompanySchema = new Schema({
 
 
 // Sameer
-let StudentVivaSchedule = new Schema({
+let studentVivaSchedule = new Schema({
     studentId: { type: String, required: true },
     dateTime: { type: Date, required: true },
     location: { type: String, required: true }
 })
 
+// This schema will be used to store location of the form i-6
+let studentForms = new Schema({
+    studentId: { type: String, required: true },
+    i6FileExtension: { type: String, required: true }
+})
+
 Mongoose.model('Student', StudentSchema);
-Mongoose.model('StudentVivaSchedule', StudentVivaSchedule);
+Mongoose.model('StudentVivaSchedule', studentVivaSchedule)
+Mongoose.model('StudentForms', studentForms)
 Mongoose.model('Company', CompanySchema);
 
 Mongoose.connect('mongodb://localhost:27017/Student', { useNewUrlParser: true }, (err) => {
