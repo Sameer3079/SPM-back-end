@@ -2,6 +2,10 @@ const Express               = require("express");
 const Route                 = Express.Router();
 const StudentController     = require("./Student.Controller");
 
+
+/**
+ *  Student post
+ */
 Route.post('/', (req,res) => {
     StudentController.add(req.body)
     .then((data) => {
@@ -12,6 +16,9 @@ Route.post('/', (req,res) => {
     })
 });
 
+/**
+ *  Student get
+ */
 Route.get('/', (req,res) => {
     StudentController.get()
     .then((Data) => {
