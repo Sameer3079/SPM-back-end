@@ -19,11 +19,23 @@ const SupervisorSchema = new Schema({
         type : String,
         required: true
     },
-    name:{
+    firstname:{
+        type:String,
+        required:true
+    },
+    lastname:{
+        type:String,
+        required:true
+    },
+    nic:{
         type:String,
         required:true
     },
     password:{
+        type:String,
+        required:true
+    },
+    confirmPassword:{
         type:String,
         required:true
     }

@@ -1,17 +1,20 @@
 const Mongoose      = require("../Config/DBSchema");
-const StudentSchema = Mongoose.model("Student");
+const SupervisorSchema = Mongoose.model("Supervisor");
 
-var StudentController = function(){
+var SupervisorController = function(){
     this.add = (Data) => {
         return new Promise((resolve,reject) => {
-            var Student = new StudentSchema({
-                studentId: Data.studentId,
-                name:Data.name
+            var Supervisor = new SupervisorSchema({
+                supervisorId: Data.supervisorId,
+                firstname:Data.firstname,
+                lastname:Data.lastname,
+                password:Data.password,
+                confirmPassword:Data.Password
             })
 
-            Student.save()
+            Supervisor.save()
             .then(() => {
-                resolve({"status":201,"message":"Added Student"})
+                resolve({"status":201,"message":"Added Supervisor"})
             })
             .catch((err) => {
                 reject({"status":404,"message":"Err "+err})
@@ -21,7 +24,7 @@ var StudentController = function(){
 
     this.get = () => {
         return new Promise((resolve,reject) => {
-            StudentSchema.find().exec()
+            SupervisorSchema.find().exec()
             .then((Data) => {
                 resolve({"status":200,"message":"Get all data", "data":Data})
             })
@@ -32,4 +35,4 @@ var StudentController = function(){
     }
 }
 
-module.exports = new StudentController();
+module.exports = new SupervisorController();
