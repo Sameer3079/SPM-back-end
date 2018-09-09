@@ -55,6 +55,34 @@ const CompanySchema = new Schema({
 });
 
 
+//Sahiru
+const SupervisorSchema = new Schema({
+    supervisorId: {
+        type : String,
+        required: true
+    },
+    firstname:{
+        type:String,
+        required:true
+    },
+    lastname:{
+        type:String,
+        required:true
+    },
+    nic:{
+        type:String,
+        required:true
+    },
+    password:{
+        type:String,
+        required:true
+    },
+    confirmPassword:{
+        type:String,
+        required:true
+    }
+})
+
 // Sameer
 let studentVivaSchedule = new Schema({
     studentId: { type: String, required: true },
@@ -185,6 +213,7 @@ Mongoose.model('StudentForms', studentForms)
 Mongoose.model('Company', CompanySchema);
 Mongoose.model('FormI1P1', FormI1P1Schema);
 Mongoose.model('DailyDiarySchema', DailyDiarySchema);
+Mongoose.model('Supervisor',SupervisorSchema)
 
 Mongoose.connect('mongodb://localhost:27017/Student', { useNewUrlParser: true }, (err) => {
     if (err) {
