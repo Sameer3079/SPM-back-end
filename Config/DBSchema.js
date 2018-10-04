@@ -57,7 +57,7 @@ const CompanySchema = new Schema({
 
 //Sahiru
 const SupervisorSchema = new Schema({
-    supervisorId: {
+    nic: {
         type : String,
         required: true
     },
@@ -69,7 +69,7 @@ const SupervisorSchema = new Schema({
         type:String,
         required:true
     },
-    nic:{
+    email:{
         type:String,
         required:true
     },

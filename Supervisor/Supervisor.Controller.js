@@ -5,11 +5,12 @@ var SupervisorController = function(){
     this.add = (Data) => {
         return new Promise((resolve,reject) => {
             var Supervisor = new SupervisorSchema({
-                supervisorId: Data.supervisorId,
+                nic: Data.nic,
                 firstname:Data.firstname,
                 lastname:Data.lastname,
+                email:Data.email,
                 password:Data.password,
-                confirmPassword:Data.Password
+                confirmPassword:Data.confirmPassword
             })
 
             Supervisor.save()
