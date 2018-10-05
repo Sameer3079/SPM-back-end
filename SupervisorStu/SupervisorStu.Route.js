@@ -13,7 +13,7 @@ Route.post('/', (req,res) => {
 });
 
 Route.get('/', (req,res) => {
-    SupervisorControllerStu.get()
+    SupervisorStuController.get()
     .then((Data) => {
         res.status(Data.status).send(Data)
     })
