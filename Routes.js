@@ -1,6 +1,7 @@
 const Express       = require("express");
 const Routes        = Express.Router();
-const Supervisor = require('./Supervisor/Supervisor.Route')
+const Supervisor = require('./Supervisor/Supervisor.Route');
+const SupervisorStu = require('./SupervisorStu/SupervisorStu.Route');
 
 const StudentRoute  = require('./Student/Student.Route');
 const AdminRoute = require('./Admin/Admin.Route');
@@ -11,6 +12,7 @@ Routes.use('/student', StudentRoute);
 Routes.use('/admin', AdminRoute);
 Routes.use('/form/formI1P1', FormI1RouteP1);
 Routes.use('/company',CompanyRoute);
-Routes.use('/supervisor', Supervisor)
+Routes.use('/supervisor', Supervisor);
+Routes.use('/supervisorStu', SupervisorStu);
 
 module.exports = Routes;
