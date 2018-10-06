@@ -170,23 +170,7 @@ const FormI1P2Schema = new Schema({
     NoOfHours: {
         type: String,
         required: true
-    },
-    tasks: {
-        type: String,
-        required: false
-    },
-    learnings: {
-        type: String,
-        required: false
-    },
-    externalSupervisorName: {
-        type: String,
-        required: false
-    },
-    date: {
-        type: String,
-        required: false
-    },   
+    }  
 })
 
 const DailyDiarySchema = new Schema({

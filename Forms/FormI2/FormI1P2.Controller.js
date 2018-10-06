@@ -12,11 +12,8 @@ var FormI1P2Controller = function(){
                 superVisorTitle:Data.superVisorTitle,
                 superVisorEmail:Data.superVisorEmail,
                 startDate:Data.startDate,
-                NoOfHours:Data.NoOfHours,
-                tasks:Data.tasks,
-                learnings:Data.learnings,
-                externalSupervisorName:Data.externalSupervisorName,
-                date:Data.date
+                endDate:Data.endDate,
+                NoOfHours:Data.NoOfHours
             })
 
             FormI1P2.save()
