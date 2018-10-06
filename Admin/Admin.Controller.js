@@ -17,23 +17,25 @@ let adminController = function () {
                         if (data === null) {
                             // Checking whether the entered date are valid (e.g. whether they are in the future)
                             let nowDateTime = new Date()
-                            if (dateTime < nowDateTime) {
+
+                            if (new Date(dateTime) < nowDateTime) {
                                 reject({ status: 400, message: 'Scheduled date has already passed' })
                             }
-
-                            // Save the scheduled viva session details in the database
-                            let scheduleObj = new studentVivaSchedule({
-                                studentId: studentId,
-                                dateTime: dateTime,
-                                location: location
-                            })
-                            scheduleObj.save()
-                                .then(
-                                    resolve({ status: 201, message: 'Successfully saved the schedule in the database' })
-                                )
-                                .catch(error => {
-                                    reject({ status: 400, message: 'Error occured while saving the schedule in the database' })
+                            else {
+                                // Save the scheduled viva session details in the database
+                                let scheduleObj = new studentVivaSchedule({
+                                    studentId: studentId,
+                                    dateTime: dateTime,
+                                    location: location
                                 })
+                                scheduleObj.save()
+                                    .then(
+                                        resolve({ status: 201, message: 'Successfully saved the schedule in the database' })
+                                    )
+                                    .catch(error => {
+                                        reject({ status: 400, message: 'Error occured while saving the schedule in the database' })
+                                    })
+                            }
                         }
                         else {
                             reject({ status: 400, message: 'A viva has already been scheduled for this student' })
