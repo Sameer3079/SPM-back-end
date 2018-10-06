@@ -1,6 +1,6 @@
-const Express               = require("express");
-const Route                 = Express.Router();
-const StudentController     = require("./Student.Controller");
+const Express = require("express");
+const Route = Express.Router();
+const StudentController = require("./Student.Controller");
 let multer = require('multer')
 let dir = './student_forms/form_i6/'
 const Mongoose = require("../Config/DBSchema");
@@ -13,27 +13,27 @@ let fs = require('fs')
 /**
  *  Student post
  */
-Route.post('/', (req,res) => {
+Route.post('/', (req, res) => {
     StudentController.add(req.body)
-    .then((data) => {
-        res.status(data.status).send({message:data.message})
-    })
-    .catch((err) => {
-        res.status(err.status).send({message:err.message})
-    })
+        .then((data) => {
+            res.status(data.status).send({ message: data.message })
+        })
+        .catch((err) => {
+            res.status(err.status).send({ message: err.message })
+        })
 });
 
 /**
  *  Student get
  */
-Route.get('/', (req,res) => {
+Route.get('/', (req, res) => {
     StudentController.get()
-    .then((Data) => {
-        res.status(Data.status).send(Data)
-    })
-    .catch((err) => {
-        res.status(err.status).send(err.message);
-    })
+        .then((Data) => {
+            res.status(Data.status).send(Data)
+        })
+        .catch((err) => {
+            res.status(err.status).send(err.message);
+        })
 })
 
 // Submit form
@@ -125,21 +125,21 @@ Route.post('/submit-form-i6/:studentId', (req, res) => {
 
 Route.post('/dailydiary', (req, res) => {
     StudentController.addDailyDiary(req.body)
-      .then(data => {
-        res.status(data.status).send({ message: data.message });
-      })
-      .catch(err => {
-        res.status(err.status).send({ message: err.message });
-      });
-  });
+        .then(data => {
+            res.status(data.status).send({ message: data.message });
+        })
+        .catch(err => {
+            res.status(err.status).send({ message: err.message });
+        });
+});
 
-  Route.get('/dailydiary', (req,res) => {
+Route.get('/dailydiary', (req, res) => {
     StudentController.getDailyDiary()
-    .then((Data) => {
-        res.status(Data.status).send(Data)
-    })
-    .catch((err) => {
-        res.status(err.status).send(err.message);
-    })
+        .then((Data) => {
+            res.status(Data.status).send(Data)
+        })
+        .catch((err) => {
+            res.status(err.status).send(err.message);
+        })
 })
 module.exports = Route;
