@@ -40,88 +40,109 @@ Route.get('/', (req, res) => {
 Route.post('/submit-form-i6/:studentId', (req, res) => {
     let studentId = req.params.studentId
 
-    StudentSchema.findOne({ studentId: studentId })
-        .then(studentRecord => {
-            if (studentRecord === null) {
-                res.status(400).send({
-                    status: false,
-                    message: "Student is not registered"
-                })
-            }
-            else {
-                let filePath = ''
-                let fileExtension = '';
+    directoryValidator().then(() => {
+        StudentSchema.findOne({ studentId: studentId })
+            .then(studentRecord => {
+                if (studentRecord === null) {
+                    res.status(400).send({
+                        status: false,
+                        message: "Student is not registered"
+                    })
+                }
+                else {
+                    let filePath = ''
+                    let fileExtension = '';
 
-                // Storage Configurations
-                let storage = multer.diskStorage({
-                    // Location
-                    destination: (req, file, cb) => {
-                        cb(null, './student_forms/form_i6/')
-                    },
-                    // File name & Extension
-                    filename: (req, file, cb) => {
-                        let substringArray = file.originalname.split('.')
-                        let substringCount = substringArray.length
-                        fileExtension = substringArray[substringCount - 1]
-                        // If the file is not a word document
-                        if (fileExtension !== 'doc' && fileExtension !== 'docx' && fileExtension !== 'docm'
-                            && fileExtension !== 'docb') {
-                            return res.status(400).send({
+                    // Storage Configurations
+                    let storage = multer.diskStorage({
+                        // Location
+                        destination: (req, file, cb) => {
+                            cb(null, './student_forms/form_i6/')
+                        },
+                        // File name & Extension
+                        filename: (req, file, cb) => {
+                            let substringArray = file.originalname.split('.')
+                            let substringCount = substringArray.length
+                            fileExtension = substringArray[substringCount - 1]
+                            // If the file is not a word document
+                            if (fileExtension !== 'doc' && fileExtension !== 'docx' && fileExtension !== 'docm'
+                                && fileExtension !== 'docb') {
+                                return res.status(400).send({
+                                    status: false,
+                                    message: "The document uploaded is not a word document"
+                                })
+                            }
+                            cb(null, studentId + '.' + fileExtension)
+                        }
+                    })
+                    // Passing storage config. & field value to get the file from
+                    let upload = multer({ storage: storage }).single('form_i6')
+
+                    upload(req, res, err => {
+                        if (err) {
+                            console.log(err)
+                            res.status(422).send({
+                                // status: true => successful, false => failure
                                 status: false,
-                                message: "The document uploaded is not a word document"
+                                message: "Error occured when uploading file"
                             })
                         }
-                        cb(null, studentId + '.' + fileExtension)
-                    }
-                })
-                // Passing storage config. & field value to get the file from
-                let upload = multer({ storage: storage }).single('form_i6')
+                        else {
+                            filePath = req.file.path
 
-                upload(req, res, err => {
-                    if (err) {
-                        console.log(err)
-                        res.status(422).send({
-                            // status: true => successful, false => failure
-                            status: false,
-                            message: "Error occured when uploading file"
-                        })
-                    }
-                    else {
-                        filePath = req.file.path
-
-                        let studentFormRecord = new StudentForms({
-                            studentId: studentId,
-                            i6FileExtension: fileExtension
-                        })
-                        studentFormRecord.save()
-                            .then(data => {
-                                res.status(201).send({
-                                    status: true,
-                                    message: "The file was uploaded successfully and the file extension was saved "
-                                        + "in the database"
-                                })
+                            let studentFormRecord = new StudentForms({
+                                studentId: studentId,
+                                i6FileExtension: fileExtension
                             })
-                            .catch(error => {
-                                fs.unlink('./student_forms/' + studentId + '.' + fileExtension, () => {
-                                    res.status(500).send({
-                                        status: false,
-                                        message: "The file was uploaded successfully but an error occured when "
-                                            + "saving the file extension in the database, so the file was deleted",
-                                        error: error
+                            studentFormRecord.save()
+                                .then(data => {
+                                    res.status(201).send({
+                                        status: true,
+                                        message: "The file was uploaded successfully and the file extension was saved "
+                                            + "in the database"
                                     })
                                 })
-                            })
-                    }
-                })
-            }
-        })
-        .catch(error => {
-            res.status(500).send({
-                status: false,
-                message: "Error encountered while searching for student"
+                                .catch(error => {
+                                    fs.unlink('./student_forms/' + studentId + '.' + fileExtension, () => {
+                                        res.status(500).send({
+                                            status: false,
+                                            message: "The file was uploaded successfully but an error occured when "
+                                                + "saving the file extension in the database, so the file was deleted",
+                                            error: error
+                                        })
+                                    })
+                                })
+                        }
+                    })
+                }
             })
-        })
+            .catch(error => {
+                res.status(500).send({
+                    status: false,
+                    message: "Error encountered while searching for student"
+                })
+            })
+    }).catch(() => {
+
+    })
 })
+
+function directoryValidator() {
+    return new Promise((resolve, reject) => {
+        if (fs.existsSync('./student_forms')) {
+            if (fs.existsSync('./student_forms/form_i6')) {
+                resolve()
+            } else {
+                fs.mkdirSync('./student_forms/form_i6')
+                resolve()
+            }
+        } else {
+            fs.mkdirSync('./student_forms')
+            fs.mkdirSync('./student_forms/form_i6')
+            resolve()
+        }
+    })
+}
 
 Route.post('/dailydiary', (req, res) => {
     StudentController.addDailyDiary(req.body)

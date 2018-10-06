@@ -18,5 +18,5 @@ app.listen(port, (err) => {
         console.log(err);
         process.exit(-1);
     }
-    console.log("server runing port " + port);
+    console.log("Server is running on port " + port);
 });
