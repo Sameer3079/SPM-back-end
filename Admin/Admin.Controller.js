@@ -111,7 +111,7 @@ let adminController = function () {
                 .then(previousDocument => {
                     resolve({
                         status: 202,
-                        data: {
+                        message: {
                             previousDocument: previousDocument,
                             updatedDocument: {
                                 studentId: studentId,
@@ -122,7 +122,7 @@ let adminController = function () {
                     })
                 })
                 .catch(err => {
-                    reject({ status: 400, error: err })
+                    reject({ status: 400, message: err })
                 })
         })
     }

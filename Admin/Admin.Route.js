@@ -18,6 +18,16 @@ router.post('/schedule-session', (req, res) => {
         })
 })
 
+router.put('/schedules/:scheduleId', (req, res) => {
+    adminController.updateStudentSchedule(req.body.studentId, req.body.dateTime, req.body.location)
+        .then(data => {
+            res.status(data.status).send(data.message)
+        })
+        .catch(error => {
+            res.status(error.status).send(error.message)
+        })
+})
+
 // Get schedules of all students
 router.get('/schedules', (req, res) => {
     adminController.getAllSchedules()

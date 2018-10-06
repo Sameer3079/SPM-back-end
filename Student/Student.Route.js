@@ -41,8 +41,6 @@ Route.post('/submit-form-i6/:studentId', (req, res) => {
     let studentId = req.params.studentId
 
     directoryValidator().then(() => {
-
-
         StudentSchema.findOne({ studentId: studentId })
             .then(studentRecord => {
                 if (studentRecord === null) {
@@ -124,7 +122,6 @@ Route.post('/submit-form-i6/:studentId', (req, res) => {
                     message: "Error encountered while searching for student"
                 })
             })
-
     }).catch(() => {
 
     })
@@ -133,9 +130,7 @@ Route.post('/submit-form-i6/:studentId', (req, res) => {
 function directoryValidator() {
     return new Promise((resolve, reject) => {
         if (fs.existsSync('./student_forms')) {
-            console.log('first if')
             if (fs.existsSync('./student_forms/form_i6')) {
-                console.log('Directory Exists')
                 resolve()
             } else {
                 fs.mkdirSync('./student_forms/form_i6')
