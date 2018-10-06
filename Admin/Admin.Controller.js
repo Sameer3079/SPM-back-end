@@ -14,7 +14,7 @@ let adminController = function () {
                 }
                 else {
                     studentVivaSchedule.findOne({ studentId: studentId }).then(data => {
-                        if (data !== null) {
+                        if (data === null) {
                             // Checking whether the entered date are valid (e.g. whether they are in the future)
                             let nowDateTime = new Date()
                             if (dateTime < nowDateTime) {
@@ -95,7 +95,6 @@ let adminController = function () {
         return new Promise((resolve, reject) => {
             studentVivaSchedule.findOneAndRemove({ studentId: studentId })
                 .then(documentFound => {
-                    console.log("delete: " + documentFound)
                     resolve({ status: 202, data: documentFound })
                 })
                 .catch(err => {

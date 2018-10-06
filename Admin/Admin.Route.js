@@ -11,20 +11,20 @@ router.post('/schedule-session', (req, res) => {
 
     adminController.scheduleStudentViva(studentId, dateTime, location)
         .then(data => {
-            res.status(data.status).send(data.message)
+            res.status(data.status).send({ message: data.message })
         })
         .catch(error => {
-            res.status(error.status).send(error.message)
+            res.status(error.status).send({ message: error.message })
         })
 })
 
 router.put('/schedules/:scheduleId', (req, res) => {
     adminController.updateStudentSchedule(req.body.studentId, req.body.dateTime, req.body.location)
         .then(data => {
-            res.status(data.status).send(data.message)
+            res.status(data.status).send({ message: data.message })
         })
         .catch(error => {
-            res.status(error.status).send(error.message)
+            res.status(error.status).send({ message: error.message })
         })
 })
 
@@ -35,7 +35,7 @@ router.get('/schedules', (req, res) => {
             res.status(data.status).send(data.data)
         })
         .catch(error => {
-            res.status(error.status).send(error.error)
+            res.status(error.status).send({ message: error.error })
         })
 })
 
@@ -46,7 +46,7 @@ router.get('/schedules/:studentId', (req, res) => {
             res.status(data.status).send(data.data)
         })
         .catch(error => {
-            res.status(error.status).send(error.error)
+            res.status(error.status).send({ message: error.error })
         })
 })
 
@@ -57,7 +57,7 @@ router.delete('/schedules/:studentId', (req, res) => {
             res.status(data.status).send(data.data)
         })
         .catch(error => {
-            res.status(error.status).send(error.error)
+            res.status(error.status).send({ message: error.error })
         })
 })
 
@@ -68,8 +68,16 @@ router.put('/schedules', (req, res) => {
             res.status(data.status).send(data.data)
         })
         .catch(error => {
-            res.status(error.status).send(error.error)
+            res.status(error.status).send({ message: error.error })
         })
+})
+
+router.delete('/schedules/:studentId', (req, res) => {
+    adminController.deleteStudentSchedule(req.params.studentId).then(data => {
+        res.status(data.status).send({ data: data.data, message: 'The viva schedule has been deleted' })
+    }).catch(error => {
+        res.status(error.status).send({ message: error.error })
+    })
 })
 
 module.exports = router
