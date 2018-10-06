@@ -42,13 +42,21 @@ const CompanySchema = new Schema({
         type:String,
         required:true
     },
-    spervisorName:{
+    supervisorName:{
         type:String,
         required:true
     },
-    companyContactNum:{
+    supervisorContact:{
         type:String,
         required:true
+    },
+    address : {
+        type : String,
+        required : true
+    },
+    email : {
+        type : String,
+        required : true
     }
 
 
