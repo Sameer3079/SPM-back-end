@@ -20,8 +20,9 @@ var CompanyController = function(){
                     var company = new CompanySchema({
 
                         companyName:Data.companyName,
-                        spervisorName:Data.spervisorName,
-                        companyContactNum:Data.companyContactNum
+                        companyContact:Data.companyContact,
+                        address:Data.address,
+                        email:Data.email
                     });
 
                     company.save()
@@ -48,7 +49,7 @@ var CompanyController = function(){
         return new Promise((resolve,reject) => {
             CompanySchema.find().exec()
             .then((Data) => {
-                resolve({"status":"200","message":"get all data","data":data});
+                resolve({"status":"200","message":"get all data","data":Data});
             })
             .catch((err) => {
                 reject({"status":"404","essage":"Error "+err});

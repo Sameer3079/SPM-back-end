@@ -12,7 +12,7 @@ Route.post('/', (req,res) => {
         res.status(data.status).send({message:data.message});
     })
     .catch((err) => {
-        res.status(data.status).send({message:data.message});
+        res.status(data.status).send({message:err.message});
     });
 })
 

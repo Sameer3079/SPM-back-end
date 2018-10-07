@@ -23,6 +23,8 @@ var StudentController = function(){
                 var Student = new StudentSchema({
                     studentId:Data.studentId,
                     firstName:Data.firstName,
+                    email: Data.email,
+                    password:Data.password,
                     lastName:Data.lastName,
                     company:Data.company,
                     supervisor:Data.supervisor,

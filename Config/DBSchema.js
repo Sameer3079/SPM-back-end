@@ -13,6 +13,14 @@ const StudentSchema = new Schema({
         type:String,
         required:true
     },
+    email : {
+        type : String,
+        required : true
+    },
+    password : {
+        type : String,
+        required : true
+    },
     lastName:{
         type:String,
         required:true
@@ -26,7 +34,7 @@ const StudentSchema = new Schema({
         required:true
     },
     academicYear:{
-        type:Number,
+        type:String,
         required:false
     }
 });
@@ -42,11 +50,7 @@ const CompanySchema = new Schema({
         type:String,
         required:true
     },
-    supervisorName:{
-        type:String,
-        required:true
-    },
-    supervisorContact:{
+    companyContact:{
         type:String,
         required:true
     },
