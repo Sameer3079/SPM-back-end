@@ -147,7 +147,15 @@ const FormI1P2Schema = new Schema({
         type: String,
         required: true
     },
+    superVisorPhone: {
+        type: String,
+        required: true
+    },
     superVisorTitle: {
+        type: String,
+        required: true
+    },
+    superVisorEmail: {
         type: String,
         required: true
     },
@@ -162,25 +170,7 @@ const FormI1P2Schema = new Schema({
     NoOfHours: {
         type: String,
         required: true
-    },
-    tasks: {
-        type: String,
-        required: true
-    },
-    learnings: {
-        type: String,
-        required: true
-    },
-    externalSupervisorName: {
-        type: String,
-        required: true
-    },
-    date: {
-        type: String,
-        required: true
-    },
-
-    
+    }  
 })
 
 const DailyDiarySchema = new Schema({
@@ -212,6 +202,7 @@ Mongoose.model('StudentVivaSchedule', studentVivaSchedule)
 Mongoose.model('StudentForms', studentForms)
 Mongoose.model('Company', CompanySchema);
 Mongoose.model('FormI1P1', FormI1P1Schema);
+Mongoose.model('FormI1P2', FormI1P2Schema);
 Mongoose.model('DailyDiarySchema', DailyDiarySchema);
 Mongoose.model('Supervisor',SupervisorSchema)
 

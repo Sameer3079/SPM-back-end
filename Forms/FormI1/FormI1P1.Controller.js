@@ -37,6 +37,28 @@ var FormI1P1Controller = function(){
             })
         })
     }
+
+      /**
+     * 
+     * getting a order by its id
+     */
+    this.getFormByID = (id) => {
+        return new Promise((resolve, reject) => {
+            FormI1P1Schema.find({ studentId: id }).exec()
+                .then((data) => {
+                    if (data.length === 1) {
+
+                        resolve({ "status": "200", "message": data });
+                    } else {
+
+                        resolve({ status: 200, message: "order doesn't exist" });
+                    }
+                })
+                .catch((err) => {
+                    reject({ status: 500, message: err })
+                })
+        })
+    }
 }
 
 module.exports = new FormI1P1Controller();
