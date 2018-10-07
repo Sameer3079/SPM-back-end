@@ -20,8 +20,9 @@ var CompanyController = function(){
                     var company = new CompanySchema({
 
                         companyName:Data.companyName,
-                        spervisorName:Data.spervisorName,
-                        companyContactNum:Data.companyContactNum
+                        companyContact:Data.companyContact,
+                        address:Data.address,
+                        email:Data.email
                     });
 
                     company.save()
