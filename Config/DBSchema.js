@@ -65,7 +65,7 @@ const CompanySchema = new Schema({
 
 //Sahiru
 const SupervisorSchema = new Schema({
-    supervisorId: {
+    nic: {
         type : String,
         required: true
     },
@@ -77,7 +77,7 @@ const SupervisorSchema = new Schema({
         type:String,
         required:true
     },
-    nic:{
+    email:{
         type:String,
         required:true
     },
@@ -205,6 +205,30 @@ const DailyDiarySchema = new Schema({
   
   });
 
+  const SupervisorStuSchema = new Schema({
+    supervisorName: {
+      type: String,
+      required: true
+    },
+    studentName: {
+      type: String,
+      required: true
+    },
+    studentID : {
+      type: String,
+      required:false
+    },
+    companyName: {
+      type: String,
+      required:false
+    },
+    dateStarted : {
+      type: String,
+      required:false
+    }
+  
+  });  
+
 Mongoose.model('Student', StudentSchema);
 Mongoose.model('StudentVivaSchedule', studentVivaSchedule)
 Mongoose.model('StudentForms', studentForms)
@@ -212,7 +236,8 @@ Mongoose.model('Company', CompanySchema);
 Mongoose.model('FormI1P1', FormI1P1Schema);
 Mongoose.model('FormI1P2', FormI1P2Schema);
 Mongoose.model('DailyDiarySchema', DailyDiarySchema);
-Mongoose.model('Supervisor',SupervisorSchema)
+Mongoose.model('Supervisor',SupervisorSchema);
+Mongoose.model('SupervisorStu',SupervisorStuSchema);
 
 Mongoose.connect('mongodb://localhost:27017/Student', { useNewUrlParser: true }, (err) => {
     if (err) {

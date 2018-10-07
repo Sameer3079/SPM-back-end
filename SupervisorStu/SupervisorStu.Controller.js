@@ -1,21 +1,20 @@
 const Mongoose      = require("../Config/DBSchema");
-const SupervisorSchema = Mongoose.model("Supervisor");
+const SupervisorStuSchema = Mongoose.model("SupervisorStu");
 
-var SupervisorController = function(){
+var SupervisorStuController = function(){
     this.add = (Data) => {
         return new Promise((resolve,reject) => {
-            var Supervisor = new SupervisorSchema({
-                nic: Data.nic,
-                firstname:Data.firstname,
-                lastname:Data.lastname,
-                email:Data.email,
-                password:Data.password,
-                confirmPassword:Data.confirmPassword
+            var SupervisorStu = new SupervisorStuSchema({
+                supervisorName: Data.supervisorName,
+                studentName:Data.studentName,
+                studentID:Data.studentID,
+                companyName:Data.companyName,
+                dateStarted:Data.dateStarted
             })
 
-            Supervisor.save()
+            SupervisorStu.save()
             .then(() => {
-                resolve({"status":201,"message":"Added Supervisor"})
+                resolve({"status":201,"message":"Added Student for Supervisor"})
             })
             .catch((err) => {
                 reject({"status":404,"message":"Err "+err})
@@ -25,7 +24,7 @@ var SupervisorController = function(){
 
     this.get = () => {
         return new Promise((resolve,reject) => {
-            SupervisorSchema.find().exec()
+            SupervisorStuSchema.find().exec()
             .then((Data) => {
                 resolve({"status":200,"message":"Get all data", "data":Data})
             })
@@ -36,4 +35,6 @@ var SupervisorController = function(){
     }
 }
 
-module.exports = new SupervisorController();
+module.exports = new SupervisorStuController();
+
+
