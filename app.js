@@ -20,3 +20,4 @@ app.listen(port, (err) => {
     }
     console.log("server runing port " + port);
 });
+module.exports = app;
