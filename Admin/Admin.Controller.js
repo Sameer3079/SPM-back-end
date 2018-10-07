@@ -13,25 +13,34 @@ let adminController = function () {
                     reject({ status: 400, message: 'Invalid Student ID' })
                 }
                 else {
-                    // Checking whether the entered date are valid (e.g. whether they are in the future)
-                    let nowDateTime = new Date()
-                    if (dateTime < nowDateTime) {
-                        reject({ status: 400, message: 'Scheduled date has already passed' })
-                    }
+                    studentVivaSchedule.findOne({ studentId: studentId }).then(data => {
+                        if (data === null) {
+                            // Checking whether the entered date are valid (e.g. whether they are in the future)
+                            let nowDateTime = new Date()
 
-                    // Save the scheduled viva session details in the database
-                    let scheduleObj = new studentVivaSchedule({
-                        studentId: studentId,
-                        dateTime: dateTime,
-                        location: location
+                            if (new Date(dateTime) < nowDateTime) {
+                                reject({ status: 400, message: 'Scheduled date has already passed' })
+                            }
+                            else {
+                                // Save the scheduled viva session details in the database
+                                let scheduleObj = new studentVivaSchedule({
+                                    studentId: studentId,
+                                    dateTime: dateTime,
+                                    location: location
+                                })
+                                scheduleObj.save()
+                                    .then(
+                                        resolve({ status: 201, message: 'Successfully saved the schedule in the database' })
+                                    )
+                                    .catch(error => {
+                                        reject({ status: 400, message: 'Error occured while saving the schedule in the database' })
+                                    })
+                            }
+                        }
+                        else {
+                            reject({ status: 400, message: 'A viva has already been scheduled for this student' })
+                        }
                     })
-                    scheduleObj.save()
-                        .then(
-                            resolve({ status: 201, message: 'Successfully saved the schedule in the database' })
-                        )
-                        .catch(error => {
-                            reject({ status: 400, message: 'Error occured while saving the schedule in the database' })
-                        })
                 }
             }).catch(error => {
                 reject({ status: 400, message: 'Error occured while searching for Student' })
@@ -88,7 +97,6 @@ let adminController = function () {
         return new Promise((resolve, reject) => {
             studentVivaSchedule.findOneAndRemove({ studentId: studentId })
                 .then(documentFound => {
-                    console.log("delete: " + documentFound)
                     resolve({ status: 202, data: documentFound })
                 })
                 .catch(err => {
@@ -104,7 +112,7 @@ let adminController = function () {
                 .then(previousDocument => {
                     resolve({
                         status: 202,
-                        data: {
+                        message: {
                             previousDocument: previousDocument,
                             updatedDocument: {
                                 studentId: studentId,
@@ -115,7 +123,7 @@ let adminController = function () {
                     })
                 })
                 .catch(err => {
-                    reject({ status: 400, error: err })
+                    reject({ status: 400, message: err })
                 })
         })
     }

@@ -1,9 +1,11 @@
 const Express               = require("express");
 const Route                 = Express.Router();
-const FormI1P1Controller     = require("./FormI1P1.Controller");
+const FormI1P2Controller     = require("./FormI1P2.Controller");
 
+
+//adding a new form
 Route.post('/', (req,res) => {
-    FormI1P1Controller.add(req.body)
+    FormI1P2Controller.add(req.body)
     .then((data) => {
         res.status(data.status).send({message:data.message})
     })
@@ -12,8 +14,9 @@ Route.post('/', (req,res) => {
     })
 });
 
+//getting all forms added by supervisor
 Route.get('/', (req,res) => {
-    FormI1P1Controller.get()
+    FormI1P2Controller.get()
     .then((Data) => {
         res.status(Data.status).send(Data)
     })
@@ -21,19 +24,6 @@ Route.get('/', (req,res) => {
         res.status(err.status).send(err.message);
     })
 })
-/**
- * 
- * getting form by student id
- */
-Route.get('/:id', (req, res) => {
-    FormI1P1Controller.getFormByID(req.params.id, req.body)
-        .then(data => {
-            res.status(data.status).send({ message: data.message });
-        })
-        .catch(err => {
-            res.status(err.status).send({ message: err.message });
-        });
-});
 
 
 module.exports = Route;
